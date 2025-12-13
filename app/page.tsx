@@ -27,8 +27,15 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen">
-      <Header 
-        title="SMR-BRAIN 통합 대시보드" 
+      {/* 공모전 출품작 배너 */}
+      <div className="bg-gradient-to-r from-primary to-blue-700 text-white text-center py-2 px-4">
+        <span className="text-sm font-medium">
+          🏆 2025 한국수력원자력 대국민 혁신 아이디어 공모전 출품작
+        </span>
+      </div>
+
+      <Header
+        title="SMR-BRAIN 통합 대시보드"
         subtitle="i-SMR 지능형 AI 에이전트 통합운영 플랫폼"
       />
 
