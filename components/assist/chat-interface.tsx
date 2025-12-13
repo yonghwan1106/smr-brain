@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { cn } from '@/lib/utils';
 import { Send, Bot, User, FileText, ExternalLink, Loader2 } from 'lucide-react';
 import { Document } from '@/lib/types';
@@ -18,7 +18,11 @@ interface ChatInterfaceProps {
   onSendMessage: (message: string) => Promise<{ answer: string; sources: Document[] }>;
 }
 
-export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
+export interface ChatInterfaceHandle {
+  sendMessage: (message: string) => void;
+}
+
+export const ChatInterface = forwardRef<ChatInterfaceHandle, ChatInterfaceProps>(({ onSendMessage }, ref) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '0',
@@ -48,14 +52,14 @@ export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
     scrollToBottom();
   }, [messages]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || isLoading) return;
+  // 메시지 전송 로직 (내부 및 외부에서 사용)
+  const sendMessageInternal = async (messageText: string) => {
+    if (!messageText.trim() || isLoading) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: input.trim(),
+      content: messageText.trim(),
       timestamp: new Date(),
     };
 
@@ -74,8 +78,8 @@ export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
     }]);
 
     try {
-      const response = await onSendMessage(userMessage.content);
-      
+      const response = await onSendMessage(messageText.trim());
+
       // 타이핑 인디케이터 제거하고 실제 응답 추가
       setMessages(prev => prev.filter(m => m.id !== typingId).concat({
         id: (Date.now() + 2).toString(),
@@ -94,6 +98,18 @@ export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // 외부에서 메시지 전송할 수 있도록 ref 노출
+  useImperativeHandle(ref, () => ({
+    sendMessage: (message: string) => {
+      sendMessageInternal(message);
+    }
+  }));
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessageInternal(input);
   };
 
   return (
@@ -137,7 +153,9 @@ export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
       </form>
     </div>
   );
-}
+});
+
+ChatInterface.displayName = 'ChatInterface';
 
 interface MessageBubbleProps {
   message: Message;

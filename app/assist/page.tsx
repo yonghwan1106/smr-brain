@@ -1,14 +1,14 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { Header } from '@/components/layout/header';
-import { ChatInterface, SuggestedQuestions } from '@/components/assist/chat-interface';
+import { ChatInterface, ChatInterfaceHandle, SuggestedQuestions } from '@/components/assist/chat-interface';
 import { DocumentSearch, RecentDocuments } from '@/components/assist/document-search';
 import { documents, chatResponses } from '@/lib/mock-data';
 import { Document } from '@/lib/types';
 
 export default function AssistPage() {
-  const [chatInput, setChatInput] = useState('');
+  const chatRef = useRef<ChatInterfaceHandle>(null);
 
   // AI 응답 시뮬레이션
   const handleSendMessage = useCallback(async (message: string): Promise<{ answer: string; sources: Document[] }> => {
@@ -33,14 +33,14 @@ export default function AssistPage() {
   }, []);
 
   const handleSelectQuestion = (question: string) => {
-    // ChatInterface에 질문 전달은 내부에서 처리
-    // 여기서는 직접 메시지 전송 트리거
+    // 추천 질문 클릭 시 자동으로 채팅 전송
+    chatRef.current?.sendMessage(question);
   };
 
   return (
     <div className="min-h-screen">
-      <Header 
-        title="Assist Agent" 
+      <Header
+        title="Assist Agent"
         subtitle="LLM + RAG 기반 자연어 운전원 지원"
       />
 
@@ -48,7 +48,7 @@ export default function AssistPage() {
         <div className="grid grid-cols-3 gap-6">
           {/* 메인 채팅 영역 */}
           <div className="col-span-2">
-            <ChatInterface onSendMessage={handleSendMessage} />
+            <ChatInterface ref={chatRef} onSendMessage={handleSendMessage} />
           </div>
 
           {/* 사이드바 */}
