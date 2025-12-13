@@ -3,18 +3,16 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { 
-  LayoutDashboard, 
-  Activity, 
-  LineChart, 
-  MessageSquare, 
+import {
+  LayoutDashboard,
+  Activity,
+  LineChart,
+  MessageSquare,
   Zap,
-  Settings,
-  Bell,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { useState } from 'react';
+import { useSidebar } from '@/lib/sidebar-context';
 
 const navigation = [
   { name: '대시보드', href: '/', icon: LayoutDashboard },
@@ -26,7 +24,7 @@ const navigation = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
+  const { collapsed, toggle } = useSidebar();
 
   return (
     <aside className={cn(
@@ -76,21 +74,17 @@ export function Sidebar() {
 
         {/* Bottom section */}
         <div className="p-4 border-t border-primary-light">
-          <Link
-            href="/settings"
-            className={cn(
-              "flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/70 hover:bg-white/5 hover:text-white transition-all",
-              collapsed && "justify-center"
-            )}
-          >
-            <Settings className="w-5 h-5" />
-            {!collapsed && <span className="text-sm">설정</span>}
-          </Link>
+          <div className={cn(
+            "flex items-center gap-3 px-3 py-2.5 text-white/50 text-xs",
+            collapsed && "justify-center"
+          )}>
+            {!collapsed && <span>SMR-BRAIN v0.1</span>}
+          </div>
         </div>
 
         {/* Collapse button */}
         <button
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={toggle}
           className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-primary border border-primary-light flex items-center justify-center text-white hover:bg-primary-light transition-colors"
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}

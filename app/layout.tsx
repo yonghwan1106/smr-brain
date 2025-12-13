@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Sidebar } from "@/components/layout/sidebar";
+import { SidebarProvider } from "@/lib/sidebar-context";
+import { LayoutContent } from "@/components/layout/layout-content";
 
 export const metadata: Metadata = {
   title: "SMR-BRAIN | i-SMR 지능형 AI 에이전트 통합운영 플랫폼",
@@ -15,10 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="antialiased">
-        <Sidebar />
-        <main className="ml-64 min-h-screen bg-gray-50">
-          {children}
-        </main>
+        <SidebarProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </SidebarProvider>
       </body>
     </html>
   );

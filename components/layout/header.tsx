@@ -1,7 +1,7 @@
 'use client';
 
 import { Bell, Search, User } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatTime } from '@/lib/utils';
 
 interface HeaderProps {
@@ -13,10 +13,10 @@ export function Header({ title, subtitle }: HeaderProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // 시간 업데이트
-  useState(() => {
+  useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
-  });
+  }, []);
 
   return (
     <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6">
