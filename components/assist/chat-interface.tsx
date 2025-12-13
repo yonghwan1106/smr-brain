@@ -30,12 +30,21 @@ export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const isInitialMount = useRef(true);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
+    // 초기 로드 시에는 스크롤하지 않음
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
     scrollToBottom();
   }, [messages]);
 
@@ -90,7 +99,7 @@ export function ChatInterface({ onSendMessage }: ChatInterfaceProps) {
   return (
     <div className="flex flex-col h-[calc(100vh-200px)] bg-white rounded-xl shadow-sm border border-gray-100">
       {/* 메시지 영역 */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((message) => (
           <MessageBubble key={message.id} message={message} />
         ))}
