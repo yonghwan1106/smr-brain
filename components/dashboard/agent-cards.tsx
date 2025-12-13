@@ -53,7 +53,7 @@ const agentConfig: Record<AgentType, {
   },
 };
 
-const statusConfig = {
+const statusConfig: Record<string, { icon: typeof CheckCircle; color: string; label: string; animate?: boolean }> = {
   active: { icon: CheckCircle, color: 'text-success', label: '활성' },
   idle: { icon: Clock, color: 'text-gray-400', label: '대기' },
   processing: { icon: Loader2, color: 'text-monitor', label: '처리 중', animate: true },
