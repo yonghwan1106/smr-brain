@@ -53,7 +53,7 @@ export default function DashboardPage() {
         {/* 모듈 상태 */}
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-4">⚛️ 모듈 현황</h2>
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
             {modules.map((module) => (
               <ModuleCard key={module.id} module={module} />
             ))}
@@ -67,10 +67,10 @@ export default function DashboardPage() {
         </section>
 
         {/* 협업 현황 & 알림 */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
           <CollaborationFlow events={collaborationEvents} />
-          <AlertPanel 
-            alerts={alertList} 
+          <AlertPanel
+            alerts={alertList}
             onAcknowledge={handleAcknowledge}
             maxItems={4}
           />

@@ -44,22 +44,24 @@ export default function AssistPage() {
         subtitle="LLM + RAG 기반 자연어 운전원 지원"
       />
 
-      <div className="p-6">
-        <div className="grid grid-cols-3 gap-6">
+      <div className="p-4 lg:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
           {/* 메인 채팅 영역 */}
-          <div className="col-span-2">
+          <div className="lg:col-span-2 order-2 lg:order-1">
             <ChatInterface ref={chatRef} onSendMessage={handleSendMessage} />
           </div>
 
           {/* 사이드바 */}
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6 order-1 lg:order-2">
             <SuggestedQuestions onSelect={handleSelectQuestion} />
-            <RecentDocuments documents={documents} />
+            <div className="hidden lg:block">
+              <RecentDocuments documents={documents} />
+            </div>
           </div>
         </div>
 
         {/* 문서 검색 */}
-        <div className="mt-6">
+        <div className="mt-4 lg:mt-6">
           <DocumentSearch documents={documents} />
         </div>
       </div>

@@ -66,9 +66,9 @@ export default function OptimizePage() {
         subtitle="Multi-Agent RL (A3C) 기반 협조운전 최적화"
       />
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 lg:p-6 space-y-4 lg:space-y-6">
         {/* 상단 통계 */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
           <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <p className="text-sm text-gray-500 mb-1">총 발전출력</p>
             <p className="text-2xl font-bold text-gray-900">{totalPower} MW</p>
@@ -92,32 +92,32 @@ export default function OptimizePage() {
         </div>
 
         {/* 출력 분배 & 수요 예측 */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
           <PowerDistributionChart modules={modules} />
           <DemandForecastChart />
         </div>
 
         {/* 경제급전 & 최적화 권고 */}
-        <div className="grid grid-cols-3 gap-6">
-          <EconomicDispatchCard 
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <EconomicDispatchCard
             totalCost={45000}
             savings={2500}
             fuelCost={32000}
             maintenanceCost={8000}
           />
-          <div className="col-span-2">
+          <div className="lg:col-span-2">
             <OptimizationRecommendations recommendations={optimizationRecommendations} />
           </div>
         </div>
 
         {/* 계통 상태 & 다중모듈 협조 */}
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6">
           <GridStatusPanel />
           
-          <div className="col-span-3 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+          <div className="lg:col-span-3 bg-white rounded-xl p-4 lg:p-5 shadow-sm border border-gray-100">
             <h3 className="text-lg font-bold text-gray-900 mb-4">🔄 다중모듈 협조운전 현황</h3>
-            
-            <div className="grid grid-cols-4 gap-4">
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
               {modules.map((module) => (
                 <div 
                   key={module.id}

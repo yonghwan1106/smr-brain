@@ -77,7 +77,7 @@ export default function PredictPage() {
         </div>
 
         {/* RUL 차트 & 트렌드 */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
           <RULChart predictions={filteredPredictions} />
           <RULTrendChart />
         </div>
@@ -85,7 +85,7 @@ export default function PredictPage() {
         {/* RUL 카드 그리드 */}
         <section>
           <h2 className="text-lg font-bold text-gray-900 mb-4">📊 기기별 잔여수명 상세</h2>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
             {filteredPredictions.map((prediction) => (
               <RULCard key={prediction.equipmentId} prediction={prediction} />
             ))}
@@ -93,8 +93,8 @@ export default function PredictPage() {
         </section>
 
         {/* 정비 일정 & 캘린더 */}
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <div className="lg:col-span-2">
             <MaintenanceCalendar schedules={filteredSchedules} />
           </div>
           <CalendarView schedules={filteredSchedules} />

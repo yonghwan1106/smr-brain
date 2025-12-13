@@ -87,8 +87,8 @@ export function SystemOverview({
   efficiency 
 }: SystemOverviewProps) {
   return (
-    <div className="grid grid-cols-4 gap-4">
-      <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+      <div className="bg-white rounded-xl p-4 lg:p-5 shadow-sm border border-gray-100">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
             <Zap className="w-6 h-6 text-primary" />

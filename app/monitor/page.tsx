@@ -83,11 +83,11 @@ export default function MonitorPage() {
         </div>
 
         {/* 실시간 차트 */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
           {chartSensor && <RealTimeChart sensor={chartSensor} height={180} />}
-          <MultiSensorChart 
-            sensors={sensors} 
-            type="temperature" 
+          <MultiSensorChart
+            sensors={sensors}
+            type="temperature"
             moduleId={selectedModule}
           />
         </div>
