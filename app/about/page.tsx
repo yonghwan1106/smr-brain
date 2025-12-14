@@ -163,16 +163,10 @@ export default function AboutPage() {
 
         {/* 제작 정보 */}
         <section className="bg-gradient-to-r from-primary to-blue-700 rounded-xl p-5 lg:p-6 text-white">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div>
-              <p className="text-white/80 text-sm mb-1">2025 한국수력원자력 대국민 혁신 아이디어 공모전</p>
-              <h2 className="text-2xl font-bold mb-2">SMR-BRAIN 프로젝트</h2>
-              <p className="text-white/90">i-SMR의 글로벌 경쟁력을 AI로 완성합니다.</p>
-            </div>
-            <div className="text-right">
-              <p className="text-white/80 text-sm">제작자</p>
-              <p className="text-xl font-bold">박용환</p>
-            </div>
+          <div>
+            <p className="text-white/80 text-sm mb-1">2025 한국수력원자력 대국민 혁신 아이디어 공모전</p>
+            <h2 className="text-2xl font-bold mb-2">SMR-BRAIN 프로젝트</h2>
+            <p className="text-white/90">i-SMR의 글로벌 경쟁력을 AI로 완성합니다.</p>
           </div>
         </section>
       </div>
